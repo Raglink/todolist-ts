@@ -11,40 +11,62 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText'
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    root:{
+        display:"flex",
+        justifyContent:"center",
+        flexGrow:1,
+    },
+    todo:{
+        maxWidth:600,
+        minWidth:280,
+    },
+    textList:{
+        marginRight:25,
+        flexWrap:"wrap",
+    }
+})
 
 const TodoList = ()=>{
+    const classes = useStyles();
     const {todoList} = useContext(TodoListContext);
     useEffect(()=>{
         console.log( "todoList : ", todoList)
     },[todoList])
     const displayTodoList = todoList.map((task, index)=>
-    <ListItem key={index}>
-        <Checkbox
-        checked={true}
-        onChange={()=>console.log("tata")}
-        color="primary"
-        inputProps={{ 'aria-label': 'primary checkbox' }}
-      />
-    <ListItemText
-        primary={task}
+
+        <ListItem key={index}>
+            <Checkbox
+            checked={true}
+            onChange={()=>console.log("tata")}
+            color="primary"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
         />
-        <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="edit">
-                <EditIcon />
-            </IconButton>
-            <IconButton edge="end" aria-label="delete">
-                <DeleteIcon />
-            </IconButton>
-            
-        </ListItemSecondaryAction>
-    </ListItem>
+        <ListItemText className={classes.textList}
+            primary={task}
+            />
+            <ListItemSecondaryAction>
+            <IconButton edge="end" aria-label="edit">
+                    <EditIcon />
+                </IconButton>
+                <IconButton edge="end" aria-label="delete">
+                    <DeleteIcon />
+                </IconButton>
+                
+            </ListItemSecondaryAction>
+        </ListItem>
+
             
         )
     return (
-        <List>
-            {displayTodoList}
-        </List>
-        
+        <div className={classes.root}>
+            <List className={classes.todo}>
+                {displayTodoList}
+            </List>
+        </div>
+            
     )
 }
 
