@@ -6,9 +6,21 @@ import { TodoListContext } from "../TodoListContext"
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from "@material-ui/core/Grid"
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles({
+    root:{
+        display:"flex",
+        justifyContent:"center",
+        alignItems: "flex-end"
+    },
+    button:{
+        margin:"10px",
+    }
+})
 
 const Form = () => {
+    const classes = useStyles()
 
     const [inputTodo, setInputTodo] = useState<string>("")
     const { addTodo } = useContext(TodoListContext)
@@ -22,9 +34,8 @@ const Form = () => {
         setInputTodo("")
     }
     return (
-        <div className="form">
-            <Grid container spacing={2} >
-                <Grid  container justify="center">
+        <div className={classes.root}>
+
                     <TextField
                         id="outlined-basic" 
                         label="Nouvelle tâche" 
@@ -33,16 +44,15 @@ const Form = () => {
                         value={inputTodo}
                         onChange={e => handleInputTodo(e.target.value)}
                     />
-                </Grid>
-                <Grid container justify="center">
+
                     <Button
+                    className={classes.button}
                     variant="contained" 
                     color="primary"
                     size="large"
                     onClick={() => { addNewTask() }}
                     >Ajouter</Button>
-                </Grid>
-            </Grid>
+
         </div>
     )
 }
